@@ -1,0 +1,153 @@
+version: "3"
+services:
+
+  tor_01:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9150:9150
+  tor_02:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9151:9150
+  tor_03:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9152:9150
+  tor_04:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9153:9150
+  tor_05:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9154:9150
+  tor_06:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9155:9150
+  tor_07:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9156:9150
+  tor_08:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9157:9150
+  tor_09:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9158:9150
+  tor_10:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9159:9150
+  tor_11:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9160:9150
+  tor_12:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9161:9150
+  tor_13:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9162:9150
+  tor_14:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9163:9150
+  tor_15:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9164:9150
+  tor_16:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9165:9150
+  tor_17:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9166:9150
+  tor_18:
+    image: peterdavehello/tor-socks-proxy
+    ports:
+      - 9167:9150
+
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - data01:/media/td/Samsung_T5/data/search_es:rw
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - data02:/media/td/Samsung_T5/data/search_es:rw
+    networks:
+      - elastic
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.1
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - data03:/media/td/Samsung_T5/data/search_es:rw
+    networks:
+      - elastic
+
+networks:
+  elastic:
+    driver: bridge
+volumes:
+  db-data:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
