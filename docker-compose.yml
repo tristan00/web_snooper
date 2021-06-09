@@ -92,7 +92,7 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data
+      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data/
     ports:
       - 9200:9200
     networks:
@@ -115,7 +115,7 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data
+      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data/
     networks:
       - elastic
   es03:
@@ -136,13 +136,14 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data
+      - /media/td/Samsung_T5/data/search_es/:/usr/share/elasticsearch/data/
     networks:
       - elastic
 
 networks:
   elastic:
     driver: bridge
+    attachable: true
 volumes:
   db-data:
   data01:
